@@ -77,12 +77,18 @@ By default this provides a flattened table of available products and their datas
  
  + time min, max and step size
  
- + short and standard name for each variable
+ + short and standard name as well as unit for each variable
  
+ 
+## Tally the catalog
+
+```{r tally}
+dplyr::count(x, product_id, dataset_id)
+```
 
 ## Save the products catalog as a table
 
-It doesn't take a long time to parse the JSON list into a table, but it is worth the effort to save the table as a flat structure for later us.  
+It doesn't take a long time to parse the JSON list into a table, but it is worth the effort to save the table as a flat structure for later use.  
 
 ```{r}
 x = write_catalog(x)

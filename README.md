@@ -107,12 +107,33 @@ information in the JSON catalog that we place in the table including:
 
 - time min, max and step size
 
-- short and standard name for each variable
+- short and standard name as well as unit for each variable
+
+## Tally the catalog
+
+``` r
+dplyr::count(x, product_id, dataset_id)
+```
+
+    ## # A tibble: 899 × 3
+    ##    product_id                              dataset_id                          n
+    ##    <chr>                                   <chr>                           <int>
+    ##  1 ARCTIC_ANALYSISFORECAST_BGC_002_004     cmems_mod_arc_bgc_anfc_ecosmo_…    14
+    ##  2 ARCTIC_ANALYSISFORECAST_BGC_002_004     cmems_mod_arc_bgc_anfc_ecosmo_…    14
+    ##  3 ARCTIC_ANALYSISFORECAST_PHY_002_001     cmems_mod_arc_phy_anfc_6km_det…    18
+    ##  4 ARCTIC_ANALYSISFORECAST_PHY_002_001     cmems_mod_arc_phy_anfc_6km_det…    18
+    ##  5 ARCTIC_ANALYSISFORECAST_PHY_002_001     cmems_mod_arc_phy_anfc_6km_det…    11
+    ##  6 ARCTIC_ANALYSISFORECAST_PHY_002_001     cmems_mod_arc_phy_anfc_6km_det…    18
+    ##  7 ARCTIC_ANALYSISFORECAST_PHY_ICE_002_011 cmems_mod_arc_phy_anfc_nextsim…    10
+    ##  8 ARCTIC_ANALYSISFORECAST_PHY_ICE_002_011 cmems_mod_arc_phy_anfc_nextsim…    10
+    ##  9 ARCTIC_ANALYSIS_FORECAST_WAV_002_014    dataset-wam-arctic-1hr3km-be       24
+    ## 10 ARCTIC_MULTIYEAR_BGC_002_005            cmems_mod_arc_bgc_my_ecosmo_P1…    10
+    ## # ℹ 889 more rows
 
 ## Save the products catalog as a table
 
 It doesn’t take a long time to parse the JSON list into a table, but it
-is worth the effort to save the table as a flat structure for later us.
+is worth the effort to save the table as a flat structure for later use.
 
 ``` r
 x = write_catalog(x)
