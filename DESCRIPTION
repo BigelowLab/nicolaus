@@ -1,0 +1,17 @@
+Package: nicolaus
+Type: Package
+Title: Unpacking the Copernicus Marine Data Store catalog
+Version: 0.3.0
+Author: Ben Tupper
+Maintainer: Ben Tupper <btupper@bigelow.org>
+Description: Provides R-language tools to unpack the Copernicus Marine Data Store catalog.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends: R (>= 4.1.0)
+Imports:
+  rlang,
+  jsonlite,
+  dplyr,
+  readr,
+  copernicus
+RoxygenNote: 7.3.2

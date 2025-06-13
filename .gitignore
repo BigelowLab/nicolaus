@@ -1,3 +1,6 @@
+# testing
+inst/explore/*
+
 # History files
 .Rhistory
 .Rapp.history

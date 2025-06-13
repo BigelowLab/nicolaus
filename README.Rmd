@@ -1,0 +1,92 @@
+---
+title: "nicolaus"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Provides access to, and download from, [Copernicus Marine Data Store's catalog](https://marine.copernicus.eu/) using R language. 
+
+# Copernicus resources
+
+Copernicus serves **so many** data resources; finding what you want can be a challenge.  Check out the new [Marine Data Store](https://marine.copernicus.eu/news/introducing-new-copernicus-marine-data-store). And checkout the listing [here](https://marine.copernicus.eu/about/producers).
+
+## Data catalogs
+
+Like data offerings from [OBPG](https://oceancolor.gsfc.nasa.gov/), Copernicus strives to provided consistent dataset identifiers that are easily decoded programmatically (and with practice by eye). In order to download programmatically you must have the `product_id` and or `dataset_id` in hand. Learn more about Copernicus [nomenclature rules here](https://help.marine.copernicus.eu/en/articles/6820094-how-is-defined-the-nomenclature-of-copernicus-marine-data#h_34a5a6f21d).  
+
+## `get` or `subset`
+
+The [Copernicus Marine Toolbox](https://help.marine.copernicus.eu/en/collections/4060068-copernicus-marine-toolbox) command-line application, `copernicus-marine` provides two primary methods for donwloading data: `get` and `subset`. `get` is not well documented, but subset does what it implies - subsetting resources by variable, spatial bounding box, depth and time.  This package only supports `subset`.
+
+## Requirements
+
+  + [R v4.1+](https://www.r-project.org/)
+  
+### From CRAN
+  + [rlang](https://CRAN.R-project.org/package=rlang)
+  + [dplyr](https://CRAN.R-project.org/package=dplyr)
+  + [readr](https://CRAN.R-project.org/package=readr)
+  + [jsonlite](https://CRAN.R-project.org/package=jsonlite)
+  
+  
+### From github
+  + [copernicus](https://github.com/BigelowLab/copernicus)
+  
+
+## Installation
+
+```
+remotes::install_github("BigelowLab/nicolaus")
+```
+
+## Configuration
+
+If you have already installed and configured the [copernicus R package](https://github.com/BigelowLab/copernicus) then you are all set to use this package.  If you have not installed and configured the [copernicus R package](https://github.com/BigelowLab/copernicus) then please do that first.
+
+
+## Fetch the products catalog
+
+You can download a product catalog for local storage.
+
+```{r}
+suppressPackageStartupMessages({
+  library(nicolaus)
+  library(dplyr)
+})
+
+ok = fetch_catalog()
+ok
+```
+
+
+## Import the products catalog
+
+This downloads into a "catalogs" directory within your [copernicus](https://github.com/BigelowLab/copernicus) data directory Now read it in.
+
+```{r read_catalog}
+x = import_catalog()
+dplyr::glimpse(x)
+```
+
+By default this provides a flattened table of available products and their datasets along with each dataset's variables. There is a lot of information in the JSON catalog that we place in the table including:
+
+ + depth min, max and depth layer count
+ 
+ + time min, max and step size
+ 
+ + short and standard name for each variable
+ 
+
+## Save the products catalog as a table
+
+It doesn't take a long time to parse the JSON list into a table, but it is worth the effort to save the table as a flat structure for later us.  
+
+```{r}
+x = write_catalog(x)
+y = read_catalog()
+identical(x,y)
+```
+
